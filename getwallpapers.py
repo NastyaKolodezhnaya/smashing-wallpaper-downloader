@@ -5,11 +5,18 @@ from bs4 import BeautifulSoup
 import re
 
 
+SMASHING_URL = 'https://www.smashingmagazine.com/'
+
+
 def validate_user_input(date, resolution):
-    try:
-        date = int(date)
-    except ValueError:
-        raise ValueError('The "date" argument provided is not a valid date (i.e. 012018)')
+    date_pattern = r'\b[01]\d20(1[2-9]|[2-9]\d)\b'
+    if not re.match(date_pattern, date):
+        raise ValueError('''The "date" argument is not a valid date (i.e. 012018).
+        The earliest date available: January 2012 (012012).''')
+
+    resolution_pattern = r'\b\d{3,4}x\d{3,4}\b'
+    if not re.match(resolution_pattern, resolution):
+        raise ValueError('The "resolution" argument is not valid')
 
 
 def make_custom_url(date):
@@ -23,7 +30,7 @@ def make_custom_url(date):
         month_created = '12'
         year_created = str(int(year_posted) - 1)
 
-    url = f'https://www.smashingmagazine.com/{year_created}/{month_created}/desktop-wallpaper-calendars-{month_posted}-{year_posted}/'
+    url = SMASHING_URL + f'{year_created}/{month_created}/desktop-wallpaper-calendars-{month_posted}-{year_posted}/'
     return url
 
 
@@ -31,8 +38,6 @@ def get_image_url_list(url, resolution):
     soup = BeautifulSoup(requests.get(url).text, 'html.parser')
     img_list = soup.find_all('a', string=resolution)
     url_list = [item.attrs['href'] for item in img_list]
-    if not url_list:
-        click.echo('Requested wallpaper are not found! Try enter another date or resolution')
     return url_list
 
 
