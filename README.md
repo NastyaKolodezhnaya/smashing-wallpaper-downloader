@@ -11,5 +11,5 @@ python3 getwallpapers.py DATE RESOLUTION
 ```
 
 ## Arguments
-- DATE (i.e. `012018` for January 2018) - month the wallpapers were issued
+- DATE (i.e. `012018` for January 2018) - month the wallpapers were published
 - RESOLUTION (i.e. `800x480`)

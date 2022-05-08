@@ -8,12 +8,15 @@ import re
 SMASHING_URL = 'https://www.smashingmagazine.com/'
 
 
-def validate_user_input(date, resolution):
+def validate_date_input(date):
     date_pattern = r'\b[01]\d20(1[2-9]|[2-9]\d)\b'
     if not re.match(date_pattern, date):
-        raise ValueError('''The "date" argument is not a valid date (i.e. 012018).
-        The earliest date available: January 2012 (012012).''')
+        raise ValueError(
+            'The "date" argument is not a valid date (i.e. 012018). The earliest date available: January 2012.'
+        )
 
+
+def validate_resolution_input(resolution):
     resolution_pattern = r'\b\d{3,4}x\d{3,4}\b'
     if not re.match(resolution_pattern, resolution):
         raise ValueError('The "resolution" argument is not valid')
@@ -56,7 +59,9 @@ def download_image(url):
 def getwallpapers(date, resolution):
     """ download desktop wallpapers in requested resolution """
 
-    validate_user_input(date, resolution)
+    validate_date_input(date)
+    validate_resolution_input(resolution)
+
     url = make_custom_url(date)
 
     image_count = 0
