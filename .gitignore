@@ -1,0 +1,8 @@
+# created by virtualenv automatically
+*.cfg
+.idea
+bin
+lib
+wallpapers
+.DS_Store
+__*__
