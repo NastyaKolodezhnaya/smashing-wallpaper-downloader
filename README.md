@@ -3,13 +3,16 @@ A CLI-utility that helps you desktop-wallpapers from [smashingmagazine.com](http
 
 ## Running
 ```
-python getwallpapers.py DATE RESOLUTION
+git clone git@github.com:NastyaKolodezhnaya/smashing-wallpaper-downloader.git
+docker build -t smashing_wallpaper
+docker run -it smashing_wallpaper
 ```
-or for Unix-based OS:
+inside Docker container:
+
 ```
-python3 getwallpapers.py DATE RESOLUTION
+python getwallpapers.py <date> <resolution>
 ```
 
-## Arguments
-- DATE (i.e. `012018` for January 2018) - month the wallpapers were published
-- RESOLUTION (i.e. `800x480`)
+## Arguments format
+- DATE: `012018` for January 2018 
+- RESOLUTION: `800x480`
