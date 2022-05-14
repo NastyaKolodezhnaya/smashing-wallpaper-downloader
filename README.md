@@ -4,7 +4,7 @@ A CLI-utility that helps you desktop-wallpapers from [smashingmagazine.com](http
 ## Running
 ```
 git clone git@github.com:NastyaKolodezhnaya/smashing-wallpaper-downloader.git
-docker build -t smashing_wallpaper
+docker build -t smashing_wallpaper .
 docker run -it smashing_wallpaper
 ```
 inside Docker container:
