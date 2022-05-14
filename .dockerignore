@@ -1,0 +1,9 @@
+.git
+.idea
+Dockerfile
+.*
+bin/
+lib/
+wallpapers/
+pyvenv.cfg
+smashing_012018.html
