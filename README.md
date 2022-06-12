@@ -1,5 +1,5 @@
 # Smashing wallpaper downloader
-A CLI-utility that helps you desktop-wallpapers from [smashingmagazine.com](https://www.smashingmagazine.com/category/wallpapers/) right from your terminal
+A CLI-utility that helps you download wallpapers from [smashingmagazine.com](https://www.smashingmagazine.com/category/wallpapers/) right from your terminal
 
 ## Running
 ```
