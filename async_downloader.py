@@ -86,5 +86,4 @@ async def download_wallpapers(date, resolution):
 if __name__ == '__main__':
     date_input = input('Date: ')
     resolution_input = input('Resolution: ')
-    # date_input, resolution_input = ('042018', '640x480')
     asyncio.run(download_wallpapers(date_input, resolution_input))
