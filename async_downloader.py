@@ -1,13 +1,11 @@
-import time
-
-import requests
-from calendar import month_name
-from bs4 import BeautifulSoup
-import re
-
 import asyncio
-import aiohttp
+import re
+import time
+from calendar import month_name
 
+import aiohttp
+import requests
+from bs4 import BeautifulSoup
 
 SMASHING_URL = 'https://www.smashingmagazine.com/'
 
@@ -16,7 +14,8 @@ def validate_date_input(date):
     date_pattern = r'\b[01]\d20(1[2-9]|[2-9]\d)\b'
     if not re.match(date_pattern, date):
         raise ValueError(
-            'The "date" argument is not a valid date (i.e. 012018). The earliest date available: January 2012.'
+            'The "date" argument is not a valid date (i.e. 012018). '
+            'The earliest date available: January 2012.'
         )
 
 
@@ -48,7 +47,7 @@ def get_image_url_list(url, resolution):
     return url_list
 
 
-async def aiohttp_get(url):
+async def aiohttp_get_content(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             assert response.status == 200
@@ -56,7 +55,7 @@ async def aiohttp_get(url):
 
 
 async def download_image(url):
-    response = await aiohttp_get(url)
+    response = await aiohttp_get_content(url)
 
     img_name = re.findall(r'[^/]*$', url)[0]  # i.e. 'jan-18-open-the-doors-of-the-new-year-cal-640x480.png'
     with open(f'wallpapers/{img_name}', 'wb') as file:
@@ -75,15 +74,17 @@ async def download_wallpapers(date, resolution):
     start = time.time()
     print('Start downloading..')
 
-    futures = [download_image(image_url) for image_url in get_image_url_list(url, resolution)]
-    for i, future in enumerate(asyncio.as_completed(futures)):
-        result = await future
-    print('Process finished. Success for {} images in {} resolution'.format(i, resolution))
+    tasks = [download_image(image_url) for image_url in get_image_url_list(url, resolution)]
+    await asyncio.gather(*tasks)
 
+    print('Process finished. Success for {} images in {} resolution'.format(
+        len(tasks), resolution
+    ))
     print('Async downloading process finished in {:.2f}'.format(time.time() - start))
 
 
 if __name__ == '__main__':
     date_input = input('Date: ')
     resolution_input = input('Resolution: ')
+
     asyncio.run(download_wallpapers(date_input, resolution_input))
