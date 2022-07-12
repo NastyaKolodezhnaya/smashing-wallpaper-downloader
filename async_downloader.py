@@ -80,7 +80,7 @@ async def download_wallpapers(date, resolution):
     print('Process finished. Success for {} images in {} resolution'.format(
         len(tasks), resolution
     ))
-    print('Async downloading process finished in {:.2f}'.format(time.time() - start))
+    print('Async downloading process finished in {:.2f} sec'.format(time.time() - start))
 
 
 if __name__ == '__main__':
